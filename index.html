@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Θεός Δημιουργός - God Creator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Orthodox Cross -->
+        <header class="game-header">
+            <div class="header-content">
+                <div class="orthodox-cross">☦</div>
+                <div class="title-section">
+                    <h1 class="game-title">Θεός Δημιουργός</h1>
+                </div>
+                <div class="game-controls">
+                    <button id="save-btn" class="control-button" title="Αποθήκευση Παιχνιδιού">💾</button>
+                    <button id="load-btn" class="control-button" title="Φόρτωση Παιχνιδιού">📂</button>
+                    <button id="new-game-btn" class="control-button" title="Νέο Παιχνίδι">🆕</button>
+                    <button id="hints-btn" class="hints-button" title="Υποδείξεις">💡</button>
+                </div>
+            </div>
+            
+            <!-- Combination Area in Header -->
+            <div class="header-combination-area">
+                <h3 class="combination-title">Συνδυάστε Στοιχεία</h3>
+                <div class="combination-slots">
+                    <div id="slot1" class="combination-slot">
+                        <span class="slot-text">Αριστερό Στοιχείο</span>
+                    </div>
+                    <div class="combination-symbol">+</div>
+                    <div id="slot2" class="combination-slot">
+                        <span class="slot-text">Δεξί Στοιχείο</span>
+                    </div>
+                    <div class="combination-symbol">=</div>
+                    <div id="result-slot" class="result-slot">
+                        <span class="slot-text">Αποτέλεσμα</span>
+                    </div>
+                </div>
+                <div class="combination-buttons">
+                    <button id="combine-btn" class="combine-button" disabled>Δημιουργήστε</button>
+                    <button id="clear-btn" class="clear-button">Καθαρίστε</button>
+                </div>
+                
+                <!-- Discovery Log in Header -->
+                <div class="header-discovery-log">
+                    <h4 class="header-log-title">Βιβλίο Γενέσεως</h4>
+                    <div id="discovery-list" class="header-discovery-list">
+                        <div class="discovery-item genesis">
+                            <span class="verse">"Ἐν ἀρχῇ ἐποίησεν ὁ θεὸς τὸν οὐρανὸν καὶ τὴν γῆν"</span>
+                            <small class="reference">Γένεσις 1:1</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Game Stats -->
+        <div class="game-stats">
+            <div class="stat-item">
+                <span class="stat-label">Στοιχεία:</span>
+                <span id="element-count" class="stat-value">4</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Συνδυασμοί:</span>
+                <span id="combination-count" class="stat-value">0/0</span>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Ημέρα:</span>
+                <span id="creation-day" class="stat-value">1</span>
+            </div>
+        </div>
+
+        <!-- Elements Panels - Dual Side Layout -->
+        <div class="elements-container">
+            <div class="elements-header">
+                <h2 class="section-title">Στοιχεία της Δημιουργίας</h2>
+                <button id="toggle-all-btn" class="toggle-all-button">Άνοιγμα Όλων</button>
+            </div>
+            <div class="dual-panels">
+                <!-- Left Elements Panel -->
+                <div class="elements-side left-panel">
+                    <h3 class="panel-title">Αριστερή Επιλογή</h3>
+                    <div id="left-elements-panel" class="elements-panel">
+                        <!-- Left elements will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Right Elements Panel -->
+                <div class="elements-side right-panel">
+                    <h3 class="panel-title">Δεξιά Επιλογή</h3>
+                    <div id="right-elements-panel" class="elements-panel">
+                        <!-- Right elements will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Biblical Quote Display -->
+        <div id="quote-display" class="quote-display hidden">
+            <div class="quote-content">
+                <p id="quote-text" class="quote-text"></p>
+                <small id="quote-reference" class="quote-reference"></small>
+                <button id="close-quote" class="close-quote">✕</button>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="help-section">
+            <button id="help-btn" class="help-button">Βοήθεια</button>
+            <div id="help-panel" class="help-panel hidden">
+                <h3>Πώς να παίξετε</h3>
+                <ul>
+                    <li>Επιλέξτε ένα στοιχείο από την αριστερή πλευρά</li>
+                    <li>Επιλέξτε ένα διαφορετικό στοιχείο από τη δεξιά πλευρά</li>
+                    <li>Κάντε κλικ σε στοιχείο στις θέσεις συνδυασμού για να το καθαρίσετε</li>
+                    <li>Πατήστε "Δημιουργήστε" για να φτιάξετε νέα στοιχεία</li>
+                    <li>Ανακαλύψτε όλη την δημιουργία σύμφωνα με την Παλαιά Διαθήκη</li>
+                    <li>Κάθε συνδυασμός βασίζεται στην Εβδομήκοντα μετάφραση</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="game-footer">
+            <p>Βασισμένο στην Εβδομήκοντα Μετάφραση - Based on the Septuagint Translation</p>
+            <p>Ανατολική Ορθόδοξη Χριστιανική Παράδοση - Eastern Orthodox Christian Tradition</p>
+        </footer>
+    </div>
+
+    <!-- Game Scripts -->
+    <script src="greek.js"></script>
+    <script src="elements.js"></script>
+    <script src="game.js"></script>
+    <script src="audio.js"></script>
+</body>
+</html>
